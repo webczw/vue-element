@@ -32,7 +32,8 @@
   </el-row>
 
   <el-dialog v-model="dialogFormVisible" :title="form.userId != '' ? '修改' : '新增'" width="500" draggable
-    :close-on-click-modal="false">
+    :close-on-click-modal="false"
+    @close="closeDialog(ruleFormRef)">
     <el-form :model="form" :rules="rules" status-icon ref="ruleFormRef">
       <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" placeholder="请输入名称" autocomplete="off" style="width: 300px;" />
@@ -140,14 +141,21 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
+function clearForm(){
+  form.userId = ''
+  form.name = ''
+  form.sex = ''
+  form.date = ''
+  form.address = ''
+}
+
 const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  dialogFormVisible.value = false
+  clearForm();
   formEl.resetFields()
+  dialogFormVisible.value = false
 }
 
 const handleEdit = (index: number, row: User) => {
-  console.log(index, row)
   form.userId = row.userId
   form.name = row.name
   form.sex = row.sex
@@ -177,6 +185,11 @@ onMounted: {
       tableData.push(userList[index])
     }
   }
+  clearForm()
+}
+const closeDialog = (formEl: FormInstance | undefined)=>{
+  formEl.resetFields()
+  clearForm();
 }
 
 //导出Excel
