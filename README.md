@@ -35,9 +35,15 @@ npm run build
 ```sh
 npm install element-plus --save
 ```
+
 ```sh
-npm install --save xlsx file-saver
+npm install --save xlsx
 ```
+
+```sh
+npm install @types/file-saver --save-dev
+```
+
 ```sh
 npm i uuid
 ```

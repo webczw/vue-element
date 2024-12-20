@@ -32,8 +32,7 @@
   </el-row>
 
   <el-dialog v-model="dialogFormVisible" :title="form.userId != '' ? '修改' : '新增'" width="500" draggable
-    :close-on-click-modal="false"
-    @close="closeDialog(ruleFormRef)">
+    :close-on-click-modal="false" @close="closeDialog(ruleFormRef)">
     <el-form :model="form" :rules="rules" status-icon ref="ruleFormRef">
       <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" placeholder="请输入名称" autocomplete="off" style="width: 300px;" />
@@ -141,7 +140,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
-function clearForm(){
+function clearForm() {
   form.userId = ''
   form.name = ''
   form.sex = ''
@@ -151,7 +150,9 @@ function clearForm(){
 
 const resetForm = (formEl: FormInstance | undefined) => {
   clearForm();
-  formEl.resetFields()
+  if (formEl) {
+    formEl.resetFields();
+  }
   dialogFormVisible.value = false
 }
 
@@ -187,8 +188,10 @@ onMounted: {
   }
   clearForm()
 }
-const closeDialog = (formEl: FormInstance | undefined)=>{
-  formEl.resetFields()
+const closeDialog = (formEl: FormInstance | undefined) => {
+  if (formEl) {
+    formEl.resetFields()
+  }
   clearForm();
 }
 
